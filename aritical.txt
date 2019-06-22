@@ -1,0 +1,12 @@
+史上最简单的SpringCloud教程 | 第五篇: 路由网关(zuul)(Finchley版本)
+
+https://blog.csdn.net/forezp/article/details/69808079  史上最简单的SpringCloud教程 | 第三篇: 服务消费者
+https://blog.csdn.net/nanbiebao6522/article/details/80574463 Spring Boot + Eureka 实现微服务负载均衡
+
+https://blog.csdn.net/jrn1012/article/details/77837658    微服务之间的调用（Ribbon与Feign）
+https://www.jianshu.com/p/e32bc07f2b86   第十章：SpringCloud Zuul路由器和过滤器
+
+https://blog.csdn.net/u012702547/article/details/77917939  Spring RestTemplate中几种常见的请求方式
+ getForEntity的第一个参数为我要调用的服务的地址，这里我调用了服务提供者提供的/hello接口，注意这里是通过服务名调用而不是服务地址，如果写成服务地址就没法实现客户端负载均衡了。
+getForEntity第二个参数String.class表示我希望返回的body类型是String
+拿到返回结果之后，将返回结果遍历打印出来
