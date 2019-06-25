@@ -25,14 +25,21 @@ public class IndexServiceImpl implements IndexService {
 
     @Override
     public IndexResponse add(String indexName, String type, Map<String, Object> data) {
-        XContentBuilder xContentBuilder = JsonBuilder.buildJonByMap(data);
+        XContentBuilder xContentBuilder = JsonBuilder.buildXContentBuilderByMap(data);
+        IndexResponse indexResponse = client.prepareIndex(indexName, type).setSource(xContentBuilder).get();
+        return indexResponse;
+    }
+
+    @Override
+    public IndexResponse add(String indexName, String type, String json_str) {
+        XContentBuilder xContentBuilder = JsonBuilder.buildXContentBuilderByJson(json_str);
         IndexResponse indexResponse = client.prepareIndex(indexName, type).setSource(xContentBuilder).get();
         return indexResponse;
     }
 
     @Override
     public UpdateResponse update(String indexName, String type, String docId, Map<String, Object> data) {
-        XContentBuilder xContentBuilder = JsonBuilder.buildJonByMap(data);
+        XContentBuilder xContentBuilder = JsonBuilder.buildXContentBuilderByMap(data);
         UpdateResponse updateResponse = client.prepareUpdate(indexName, type, docId).setDoc(xContentBuilder).get();
         return updateResponse;
     }

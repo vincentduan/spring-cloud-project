@@ -3,10 +3,9 @@ package com.vincent.controller;
 import com.vincent.service.IndexService;
 import com.vincent.utils.ResponseVOUtil;
 import com.vincent.vo.ResponseResult;
+import org.elasticsearch.action.index.IndexResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -19,10 +18,16 @@ public class IndexController {
     @Autowired
     private IndexService indexService;
 
-    @PostMapping("/add/{index}/{type}")
-    public ResponseResult add(@RequestBody Map<String, String> data) {
-        System.out.println(data);
-        return ResponseVOUtil.success("success");
+    @PostMapping("/add/{indexName}/{type}")
+    public ResponseResult add(@PathVariable("indexName") String indexName, @PathVariable("type") String type, @RequestBody Map<String, Object> data) {
+        IndexResponse add = indexService.add(indexName, type, data);
+        return ResponseVOUtil.success(add);
+    }
+
+    @PostMapping("/addstr/{indexName}/{type}")
+    public ResponseResult addByStr(@PathVariable("indexName") String indexName, @PathVariable("type") String type, @RequestParam("str") String str) {
+        IndexResponse add = indexService.add(indexName, type, str);
+        return ResponseVOUtil.success(add);
     }
 
 }

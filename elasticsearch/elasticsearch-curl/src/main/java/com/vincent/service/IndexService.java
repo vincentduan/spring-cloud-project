@@ -13,6 +13,8 @@ public interface IndexService {
 
     IndexResponse add(String indexName, String type, Map<String, Object> data);
 
+    IndexResponse add(String indexName, String type, String json_str);
+
     UpdateResponse update(String indexName, String type, String docId, Map<String, Object> data);
 
     DeleteResponse delete(String indexName, String type, String docId);
