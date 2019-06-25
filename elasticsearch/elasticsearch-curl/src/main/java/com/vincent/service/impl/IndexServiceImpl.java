@@ -45,6 +45,13 @@ public class IndexServiceImpl implements IndexService {
     }
 
     @Override
+    public UpdateResponse update(String indexName, String type, String docId, String json_str) {
+        XContentBuilder xContentBuilder = JsonBuilder.buildXContentBuilderByJson(json_str);
+        UpdateResponse updateResponse = client.prepareUpdate(indexName, type, docId).setDoc(xContentBuilder).get();
+        return updateResponse;
+    }
+
+    @Override
     public DeleteResponse delete(String indexName, String type, String docId) {
         DeleteResponse response = client.prepareDelete(indexName, type, docId).get();
         return response;

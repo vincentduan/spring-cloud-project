@@ -1,9 +1,16 @@
 package com.vincent.bean;
 
+import org.elasticsearch.action.bulk.BackoffPolicy;
+import org.elasticsearch.action.bulk.BulkProcessor;
+import org.elasticsearch.action.bulk.BulkRequest;
+import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.TransportAddress;
+import org.elasticsearch.common.unit.ByteSizeUnit;
+import org.elasticsearch.common.unit.ByteSizeValue;
+import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -49,6 +56,34 @@ public class MyConfiguration {
                         .maxAge(3600);
             }
         };
+    }
+
+    @Bean
+    public BulkProcessor createBulkProcessor(Client client) {
+        return BulkProcessor.builder(
+                client,
+                new BulkProcessor.Listener() {
+                    @Override
+                    public void beforeBulk(long executionId,
+                                           BulkRequest request) { }
+
+                    @Override
+                    public void afterBulk(long executionId,
+                                          BulkRequest request,
+                                          BulkResponse response) { }
+
+                    @Override
+                    public void afterBulk(long executionId,
+                                          BulkRequest request,
+                                          Throwable failure) { }
+                })
+                .setBulkActions(10000)
+                .setBulkSize(new ByteSizeValue(5, ByteSizeUnit.MB))
+//                .setFlushInterval(TimeValue.timeValueSeconds(5))
+                .setConcurrentRequests(1)
+//                .setBackoffPolicy(
+//                        BackoffPolicy.exponentialBackoff(TimeValue.timeValueMillis(100), 3))
+                .build();
     }
 
 }
