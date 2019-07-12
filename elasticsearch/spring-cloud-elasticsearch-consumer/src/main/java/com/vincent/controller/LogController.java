@@ -37,9 +37,9 @@ public class LogController {
         Map<String, Object> data = new HashMap<>();
         data.put("userName", "vincent_duan");
         data.put("passwordEn", "123456");
-        data.put("index", "log");
-        data.put("type", "type");
-        ResponseEntity<Object> objectResponseEntity = restTemplate.postForEntity("http://elasticsearch-curl-provider/add/index/type", data, Object.class);
+        String indexName = "log";
+        String type = "type";
+        ResponseEntity<Object> objectResponseEntity = restTemplate.postForEntity("http://elasticsearch-curl-provider/add/"+indexName+"/" + type, data, Object.class);
         System.out.println(objectResponseEntity.toString());
         return data;
     }
