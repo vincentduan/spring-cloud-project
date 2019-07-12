@@ -10,3 +10,5 @@ https://blog.csdn.net/u012702547/article/details/77917939  Spring RestTemplate�
  getForEntity的第一个参数为我要调用的服务的地址，这里我调用了服务提供者提供的/hello接口，注意这里是通过服务名调用而不是服务地址，如果写成服务地址就没法实现客户端负载均衡了。
 getForEntity第二个参数String.class表示我希望返回的body类型是String
 拿到返回结果之后，将返回结果遍历打印出来
+
+https://blog.csdn.net/haobao528/article/details/85315977  【SpringCloud Greenwich版本】目录
