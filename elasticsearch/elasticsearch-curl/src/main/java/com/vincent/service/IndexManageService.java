@@ -3,7 +3,6 @@ package com.vincent.service;
 import com.alibaba.fastjson.JSONObject;
 import org.elasticsearch.action.admin.indices.create.CreateIndexResponse;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexResponse;
-import org.elasticsearch.action.update.UpdateResponse;
 
 import java.util.Map;
 

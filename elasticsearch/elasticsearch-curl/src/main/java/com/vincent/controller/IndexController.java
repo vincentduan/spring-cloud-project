@@ -20,9 +20,8 @@ public class IndexController {
 
     @PostMapping("/add/{indexName}/{type}")
     public ResponseResult add(@PathVariable("indexName") String indexName, @PathVariable("type") String type, @RequestBody Map<String, Object> data) {
-        System.out.println("indexName:" + indexName + ", type:" + type + ",data:" + data);
         IndexResponse add = indexService.add(indexName, type, data);
-        System.out.println(add);
+        System.out.println(ResponseVOUtil.success(add));
         return ResponseVOUtil.success(add);
     }
 

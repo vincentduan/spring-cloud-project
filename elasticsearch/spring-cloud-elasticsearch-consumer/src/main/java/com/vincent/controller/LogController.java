@@ -40,7 +40,7 @@ public class LogController {
         String indexName = "log";
         String type = "type";
         ResponseEntity<Object> objectResponseEntity = restTemplate.postForEntity("http://elasticsearch-curl-provider/add/"+indexName+"/" + type, data, Object.class);
-        System.out.println(objectResponseEntity.toString());
+        System.out.println(objectResponseEntity.getBody());
         return data;
     }
 }
