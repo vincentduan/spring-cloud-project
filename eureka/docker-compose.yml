@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+
+    eureka:
+        build:
+            context: ./eureka
+            dockerfile: Dockerfile
+        container_name: ddy-eureka
+        ports: 
+            - "8080:8080"
+
+    service-provider-1:
+        build:
+            context: ./provider-1
+            dockerfile: Dockerfile
+        container_name: ddy-provider-1
+        ports:
+            - "8081:8081"
+        depends_on:
+            - eureka
+        links:
+            - eureka
+    
+    service-provider-2:
+        build:
+            context: ./provider-2
+            dockerfile: Dockerfile
+        container_name: ddy-provider-2
+        ports:
+            - "8082:8082"
+        depends_on:
+            - eureka
+        links:
+            - eureka
+
+    service-consumer:
+        build:
+            context: ./consumer
+            dockerfile: Dockerfile
+        container_name: ddy-consumer
+        ports:
+            - "8083:8083"
+        depends_on:
+            - eureka
+            - service-provider-1
+            - service-provider-2
+        links:
+            - eureka
+            - service-provider-1
+            - service-provider-2
+        
